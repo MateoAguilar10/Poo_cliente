@@ -16,7 +16,7 @@ public class Empleado {
 
     // Constructor por defecto
     public Empleado() {
-        nombre = "sin asignar";
+        nombre = "Sin asignar";
         salarioHora = 10000;
         horasTrabajadas = 40;
         bonificacion = 0;
@@ -96,8 +96,27 @@ public class Empleado {
     }
 
     // Metodo de comportamiento 2
-    public double calcularSalarioMensual() {
-        return calcularSalario() * 4;
+    public void registrarHoras(int dias) {
+        int totalHoras =0;
+
+        if(dias > 0) {
+            for(int i = 1; i <= dias; i++) {
+                System.out.print("Ingrese las horas trabajadas del dia " + i + ": ");
+                int horasDia = sc.nextInt();
+                sc.nextLine();
+
+                if (horasDia >= 0 && horasDia <= 24) {
+                    totalHoras += horasDia;
+                } else {
+                    System.out.println("Horas invalidas");
+                    i--;
+                }
+            }
+            setHorasTrabajadas(totalHoras);
+            System.out.println("Total de horas " + totalHoras);
+        } else {
+            System.out.println("Dias invalidos");
+        }
     }
 
     // Metodo para seleccionar un empleado
@@ -137,7 +156,7 @@ public class Empleado {
             System.out.println("3. Modificar atributos del objeto");
             System.out.println("4. Visualizar objetos registrados");
             System.out.println("5. Ejecutar metodo calcular salario");
-            System.out.println("6. Ejecutar metodo calcular salario mensual");
+            System.out.println("6. Registrar horas trabajadas");
             System.out.println("7. Salir");
 
             System.out.print("Seleccione una opcion: ");
@@ -246,11 +265,14 @@ public class Empleado {
                     break;
 
                 case 6:
-                    Empleado mensual = seleccionarEmpleado();
+                    Empleado registrar = seleccionarEmpleado();
 
-                    if (mensual != null) {
-                        System.out.println("Salario mensual aproximado: $" +
-                                mensual.calcularSalarioMensual());
+                    if (registrar != null) {
+                        System.out.print("Ingrese el numero de dias trabajados: ");
+                        int dias = sc.nextInt();
+                        sc.nextLine();
+
+                        registrar.registrarHoras(dias);
                     }
                     break;
 
